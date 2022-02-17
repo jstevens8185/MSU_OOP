@@ -1,28 +1,16 @@
-#include <iostream>
-#include "cmath"
-
-#define PI 3.14159265
-
-using namespace std;
-
+#ifndef PHASOR_H
+#define PHASOR_H
 
 
 class Phasor
 {
     private:
-        /* data */
         double magnitude;
         double phase;
     public:
 ////////////////////default constructor//////////////////////////
 
-        Phasor(){
-            this->magnitude = 0;
-            this->phase = 0;
-
-            // cout << "magnitude is " << magnitude << endl;
-            // cout << "phase is " << phase << endl;
-        };
+        Phasor();
 
 /****************************************************************
  *          Programmer defined constructor
@@ -40,19 +28,7 @@ class Phasor
  *              phase to 180 degrees whenever this happens.
  ****************************************************************/
 
-        Phasor(const double x, const double y){
-            this->magnitude = sqrt(pow(x,2)+pow(y,2));
-            cout << "magnitude is " << magnitude << endl;
-            double tempPhase = (atan(y/x) * 180 / PI);
-            while (tempPhase < 0){
-                tempPhase += 360;
-            }
-            if(tempPhase == -0){
-                tempPhase = 180;
-            }
-            this->phase = tempPhase;
-            cout << "phase is " << phase << endl;
-        };
+        Phasor(const double, const double);
 
 /****************************************************************
  *          Set Magnitude Function
@@ -63,15 +39,8 @@ class Phasor
  *  Logic:  Check if value is negative. If it's negative, then 
  *              flip the sign and assign it to magnitude
  ****************************************************************/
-         void setMagnitude(const double x){
-             double temp = x;
-             if(temp < 0){
-                 temp = -temp;
-             }
-             cout << "Magnitude was " << magnitude << endl;
-             this->magnitude = temp;
-             cout << "Now magnitude is " << magnitude << endl;
-         };
+
+         void setMagnitude(const double);
 
 
 /****************************************************************
@@ -83,10 +52,7 @@ class Phasor
  *  Logic:  Retrieve magnitude
  ****************************************************************/
 
-         double getMagnitude(){
-             double temp = magnitude;
-             return temp;
-         };
+         double getMagnitude();
 
 /****************************************************************
  *          Set Phase Function
@@ -97,36 +63,50 @@ class Phasor
  *  Logic:  Check if value is negative. If it's negative, then 
  *              add 360 until its positive. Set new phase
  ****************************************************************/
-         void setPhase(double x){
-            double tempX = x;
-            while(tempX < 0){
-                tempX += 360;
-            };
-            this->phase = tempX;
-            cout << "Now the phase is " << phase << endl;
-            
-         };
-        // double getPhase();
+         void setPhase(double);
 
+/****************************************************************
+ *          Get Phase Function
+ *  Name:   GetPhase()
+ *  Args:   None
+ *  Rtrn:   Double
+ *  Func:   Gets the phase of the Phasor and returns as a double
+ *  Logic:  Retrieve value of the phase
+ ****************************************************************/
+         double getPhase();
+
+/****************************************************************
+ *          Multiply Phasors Function
+ *  Name:   operator*
+ *  Args:   &Phasor
+ *  Rtrn:   Phasor
+ *  Func:   Multiply 2 phasors together and return the result
+ *  Logic:  Pass in phasor by reference (Const Phasor &right). Create new phasor 'temp'. 
+ *              Multiply 'this' phasors magnitude by &right phasors magnitude. Save result
+ *              in temp.setMagnitude. Add both phasors angle. Make sure angle is positive.
+ *              while angle is 360 or bigger, subtract 360. Save new angle in temp.setPhase. Return temp. 
+ ****************************************************************/
+         Phasor operator*(const Phasor &);
+
+/****************************************************************
+ *          Divide Phasors Function
+ *  Name:   operator/
+ *  Args:   &Phasor
+ *  Rtrn:   Phasor
+ *  Func:   Divide 2 phasors and return the result
+ *  Logic:  Pass in phasor by reference (Const Phasor &right). Create new phasor 'temp'. 
+ *              Divide 'this' phasors magnitude by &right phasors magnitude. Save result
+ *              in temp.setMagnitude. Subtract both phasors angle. Make sure angle is positive.
+ *              while angle is 360 or bigger, subtract 360. Save new angle in temp.setPhase. Return temp. 
+ ****************************************************************/
+         Phasor operator/(const Phasor &);
 
 ////////////////////////destructor///////////////////////////////
 
-        //~Phasor();
+        ~Phasor();
 
 };
 
-// Phasor::Phasor(/* args */)
-// {
-// }
 
-// Phasor::~Phasor()
-// {
-// }
 
-int main(){
-    Phasor a(-1,0);
-    a.setMagnitude(4);
-    double m = a.getMagnitude();
-    cout << "m equals " << m << endl;
-    a.setPhase(-45);
-}
+#endif
