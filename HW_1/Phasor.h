@@ -1,5 +1,4 @@
-#ifndef PHASOR_H
-#define PHASOR_H
+#pragma once
 
 
 class Phasor
@@ -107,6 +106,4 @@ class Phasor
 
 };
 
-
-
-#endif
+#include "Phasor.hpp"
