@@ -1,5 +1,6 @@
 #include "Fraction.h"
 #include <iostream>
+#include <cmath>
 
 Fraction::Fraction(const long &right)
 {
@@ -7,11 +8,32 @@ Fraction::Fraction(const long &right)
     denominator = 1;
 }
 
+Fraction::Fraction(const long& num, const long& den){
+    numerator = num;
+    denominator = den;
+};
+
+Fraction Fraction::exp(int e){
+    long int tempNum = pow(this->numerator,e);
+    long int tempDem = pow(this->denominator,e);
+    Fraction newFrac(tempNum,tempDem);
+    return newFrac;
+};
+
 Fraction::operator double()
 {
     return double(numerator)/denominator;
 }
 
+/**************************************************
+ *          Overloaded math operators
+ * funtion: perform math operations on Fractions
+ *              by using the appropriate symbols
+ *              ie: instead of 
+ *          fraction1.multiply(fraction2);
+ *              We would use:
+ *          fraction1 * fraction2;
+ **************************************************/
 Fraction Fraction::operator*(const Fraction &right)
 {
     numerator = numerator * right.numerator;
@@ -42,6 +64,70 @@ Fraction Fraction::operator-(const Fraction &right)
     denominator = denominator * right.denominator;
 
     return *this;
+}
+
+
+/****************************************************
+ *          Comparision operators
+ *  Function: used to make comparisions of 
+ *              Fration objects
+ ***************************************************/
+bool Fraction::operator==(const Fraction &right){
+    if(this->numerator==right.numerator && this->denominator==right.denominator){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Fraction::operator!=(const Fraction &right){
+    if(this->numerator!=right.numerator || this->denominator!=right.denominator){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool Fraction::operator<(const Fraction &right){
+    int lhsNumerator = this->numerator * right.denominator;
+    int rhsNumerator = this->denominator * right.numerator;
+    if(lhsNumerator < rhsNumerator){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Fraction::operator<=(const Fraction &right){
+    int lhsNumerator = this->numerator * right.denominator;
+    int rhsNumerator = this->denominator * right.numerator;
+    if(lhsNumerator < rhsNumerator || lhsNumerator == rhsNumerator){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Fraction::operator>(const Fraction &right){
+    int lhsNumerator = this->numerator * right.denominator;
+    int rhsNumerator = this->denominator * right.numerator;
+    if(lhsNumerator > rhsNumerator){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Fraction::operator>=(const Fraction &right){
+    int lhsNumerator = this->numerator * right.denominator;
+    int rhsNumerator = this->denominator * right.numerator;
+    if(lhsNumerator > rhsNumerator || lhsNumerator == rhsNumerator){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 /**************************************************
@@ -110,9 +196,9 @@ std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
     return os;
 }
 
-std::istream& operator>>(std::istream& instream, Fraction& fraction){ 
-
-};
+// std::istream& operator>>(std::istream& instream, Fraction& fraction){ 
+    
+// };
 
 unsigned long GCD(unsigned long int a, unsigned long int b)
 {

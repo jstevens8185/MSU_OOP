@@ -9,9 +9,12 @@ class Fraction
     public:
         Fraction() {numerator = 0, denominator = 1;}
         Fraction(const long&);
+        Fraction(const long&, const long&);
 
         // convert a Fraction object to double
         operator double();
+
+        Fraction exp(int);
         
         // overloading mathematical operators
         Fraction operator*(const Fraction&);
@@ -20,15 +23,23 @@ class Fraction
         Fraction operator-(const Fraction&);
         Fraction operator-();
 
+        //overloading comparison operators
+        bool operator==(const Fraction&);
+        bool operator!=(const Fraction&);
+        bool operator<(const Fraction&);
+        bool operator<=(const Fraction&);
+        bool operator>(const Fraction&);
+        bool operator>=(const Fraction&);
 
         Fraction set(const long&, const long&);
+        
         Fraction reduce(const long&, const long&); 
         // call this function to reduce the fractions
         // first parameter is numerator and second is denominator
 
         //Overloading ostream
         friend std::ostream& operator<<(std::ostream&, const Fraction&);
-        friend std::istream& operator>>(std::istream&, const string&);
+        friend std::istream& operator>>(std::istream&, Fraction&);
 
         //////////////////////////////////////////
         //  Name: error()
