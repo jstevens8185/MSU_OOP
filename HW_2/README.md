@@ -18,6 +18,6 @@ and perform the following operations:
 The program also performs comparison and assignment operations.
 
 ## Files
-- [CallenderStevensH2.cpp](/CallenderStevensH2.cpp)
-- [Fraction.h](/Fraction.h)
-- [Fraction.hpp](/Fraction.hpp)
+- [CallenderStevensH2.cpp](/CallenderStevensH2)
+- [Fraction.h](/Fraction)
+- [Fraction.hpp](/Fraction)
