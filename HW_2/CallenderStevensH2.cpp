@@ -18,11 +18,13 @@ using namespace std;
 
 int main()
 {
-    long int a = 4, b =14;
+    long int a = 4, b = 14;
     Fraction c;
     Fraction d = 5;
 
     c.set(a, b);
 
-    cout << double(c);
+    cout << "c is " << c << endl;
+    cout << "reciporical of c is " << c.reciporical() << endl;
+    cout << "c as a double is " << double(c) << endl;
 }
