@@ -20,13 +20,15 @@ class Fraction
         Fraction operator-(const Fraction&);
         Fraction operator-();
 
+
         Fraction set(const long&, const long&);
         Fraction reduce(const long&, const long&); 
         // call this function to reduce the fractions
         // first parameter is numerator and second is denominator
 
-        friend std::ostream& operator <<(std::ostream&, const Fraction&);
-
+        //Overloading ostream
+        friend std::ostream& operator<<(std::ostream&, const Fraction&);
+        friend std::istream& operator>>(std::istream&, const string&);
 
         //////////////////////////////////////////
         //  Name: error()
@@ -36,6 +38,7 @@ class Fraction
         //  Params: int for switch statement
         ///////////////////////////////////////////
         void error(int);
+        Fraction reciporical();
 };
 
 unsigned long GCD(unsigned long int a, unsigned long int b);
