@@ -25,6 +25,12 @@ Fraction::operator double()
     return double(numerator)/denominator;
 }
 
+Fraction Fraction::operator=(const Fraction& rhs){
+    this->numerator = rhs.numerator;
+    this->denominator = rhs.denominator;
+    return *this;
+};
+
 /**************************************************
  *          Overloaded math operators
  * funtion: perform math operations on Fractions
@@ -192,7 +198,11 @@ Fraction Fraction::reciporical(){
 
 std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
 {
-    os << fraction.numerator << '/' << fraction.denominator;
+    if(fraction.denominator == 1){
+        os << fraction.numerator;
+    }else{
+        os << fraction.numerator << '/' << fraction.denominator;
+    }
     return os;
 }
 

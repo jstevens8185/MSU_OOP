@@ -15,6 +15,8 @@ class Fraction
         operator double();
 
         Fraction exp(int);
+
+        Fraction operator=(const Fraction&);
         
         // overloading mathematical operators
         Fraction operator*(const Fraction&);

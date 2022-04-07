@@ -49,4 +49,6 @@ int main()
     cout << "reciporical of c is " << c.reciporical() << endl;
     cout << "c to the power of 3 is: " << c.exp(3) << endl;
     cout << "c as a double is " << double(c) << endl;
+    c = d;
+    cout << "c is now equal to d. C is: " << c << endl;
 }
