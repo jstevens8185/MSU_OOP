@@ -20,4 +20,4 @@ The program also performs comparison and assignment operations.
 ## Files
 - [CallenderStevensH2.cpp](/HW_2/CallenderStevensH2.cpp)
 - [Fraction.h](/HW_2/Fraction.h)
-- [Fraction.hpp](/HW_2/Fraction.hpp)
+- [Fraction.cpp](/HW_2/Fraction.cpp)
