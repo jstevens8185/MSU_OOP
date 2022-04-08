@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 
+using namespace std;
+
 Fraction::Fraction(const long &right)
 {
     numerator = right;
@@ -9,8 +11,17 @@ Fraction::Fraction(const long &right)
 }
 
 Fraction::Fraction(const long& num, const long& den){
-    numerator = num;
-    denominator = den;
+    //reduce the fraction before storing
+    long gcd;
+    int a2, b2;
+
+    gcd = GCD(num,den);
+    //std::cout << "gcd is: " << gcd << std::endl;
+    a2 = num/gcd;
+    b2 = den/gcd;
+
+    numerator = a2;
+    denominator = b2;
 };
 
 Fraction Fraction::exp(int e){
@@ -42,34 +53,78 @@ Fraction Fraction::operator=(const Fraction& rhs){
  **************************************************/
 Fraction Fraction::operator*(const Fraction &right)
 {
-    numerator = numerator * right.numerator;
-    denominator = denominator * right.denominator;
+    Fraction newFrac;
+    newFrac.numerator = numerator * right.numerator;
+    newFrac.denominator = denominator * right.denominator;
+    
+    int a2, b2;
+    int gcd = GCD(newFrac.numerator,newFrac.denominator);
+    //std::cout << "gcd is: " << gcd << std::endl;
+    a2 = newFrac.numerator/gcd;
+    b2 = newFrac.denominator/gcd;
 
-    return *this;
+    newFrac.numerator = a2;
+    newFrac.denominator = b2;
+
+    return newFrac;
 }
 
 Fraction Fraction::operator/(const Fraction &right)
 {
-    numerator = numerator * right.denominator;
-    denominator = denominator * right.numerator;
+    Fraction newFrac;
+    if(right.numerator == 0){
+        std::cout << "DIVISION BY ZERO" << std::endl;
+        return 0;
+    }
+    newFrac.numerator = numerator * right.denominator;
+    newFrac.denominator = denominator * right.numerator;
 
-    return *this;
+    int a2, b2;
+    int gcd = GCD(newFrac.numerator,newFrac.denominator);
+    //std::cout << "gcd is: " << gcd << std::endl;
+    a2 = newFrac.numerator/gcd;
+    b2 = newFrac.denominator/gcd;
+
+    newFrac.numerator = a2;
+    newFrac.denominator = b2;
+
+    return newFrac;
 }
 
 Fraction Fraction::operator+(const Fraction &right)
 {
-    numerator = (numerator * right.denominator) + (denominator * right.numerator);
-    denominator = denominator * right.denominator;
+    Fraction newFrac;
+    newFrac.numerator = (numerator * right.denominator) + (denominator * right.numerator);
+    newFrac.denominator = denominator * right.denominator;
 
-    return *this;
+    int a2, b2;
+    int gcd = GCD(newFrac.numerator,newFrac.denominator);
+    //std::cout << "gcd is: " << gcd << std::endl;
+    a2 = newFrac.numerator/gcd;
+    b2 = newFrac.denominator/gcd;
+
+    newFrac.numerator = a2;
+    newFrac.denominator = b2;
+
+    return newFrac;
 }
 
 Fraction Fraction::operator-(const Fraction &right)
 {
-    numerator = (numerator * right.denominator) - (denominator * right.numerator);
-    denominator = denominator * right.denominator;
+    Fraction newFrac;
+    newFrac.numerator = (numerator * right.denominator) - (denominator * right.numerator);
+    newFrac.denominator = denominator * right.denominator;
 
-    return *this;
+    int a2, b2;
+    int gcd = GCD(newFrac.numerator,newFrac.denominator);
+    //std::cout << "gcd is: " << gcd << std::endl;
+    a2 = newFrac.numerator/gcd;
+    b2 = newFrac.denominator/gcd;
+
+    newFrac.numerator = a2;
+    newFrac.denominator = b2;
+
+    return newFrac;
 }
 
 
@@ -145,9 +200,10 @@ bool Fraction::operator>=(const Fraction &right){
  **************************************************/
 Fraction Fraction::operator-()
 {
-    numerator *= -1;
-    
-    return *this;
+    Fraction newFrac;
+    newFrac.numerator = this->numerator *-1;
+    newFrac.denominator = this->denominator;
+    return newFrac;;
 }
 
 Fraction Fraction::set(const long &top, const long &bottom)
@@ -191,6 +247,9 @@ void Fraction::error(int a){
 }
 
 Fraction Fraction::reciporical(){
+    if(this->numerator == 0){
+        std::cout << "DIVISION BY ZERO" << std::endl;
+    }
     Fraction newFrac;
     newFrac.set(denominator,numerator);
     return newFrac;
@@ -206,9 +265,135 @@ std::ostream& operator<<(std::ostream& os, const Fraction& fraction)
     return os;
 }
 
-// std::istream& operator>>(std::istream& instream, Fraction& fraction){ 
-    
-// };
+
+std::istream& operator>>(std::istream& in, Fraction& input) {
+    int top;
+    int bottom=1;
+    int whole=0;
+    int peekchar = 0;
+    bool valid=false;
+
+ 
+    //get the numerator
+    in >> top; 
+    //std::cout << "top is: " << top << std::endl;
+    //peek at next character
+    peekchar = in.peek();  
+
+    //if next character is a /
+    //skip the / character
+    //get the denominator
+    if(in && peekchar == '/') { 
+        //std::cout << "in first if block" << std::endl;
+        in.get(); 
+        in >> bottom; 
+        //std::cout << "bottom is: " << bottom << std::endl;
+        valid = true;
+    }
+    //if we succeeded in reading
+    if (in || valid) { 
+        if (bottom == 0) {
+            input.error(2);
+            bottom = 1;
+        }
+        top += (whole*bottom);
+        input = Fraction(top, bottom);
+     }
+     return in;
+};
+
+void run(Fraction a, Fraction b){
+            cout << "PLEASE ENTER YOUR FRACTIONS AS 'A/B' WITHOUT QUOTES THEN -->ENTER." 
+            << endl << endl;
+
+        cout << "Numerator/Denominator: ";
+        cin >> a;
+        cout << endl << "Numerator/Denominator: ";
+        cin >> b;
+        cout << "-------------------------------" << endl;
+        cout << "CONVERTING BOTH FRACTIONS TO DOUBLE" << endl;
+        cout << a << " Converted to Double is: " << double(a) << endl;
+        cout << b << " Converted to Double is: " << double(b) << endl;
+        cout << "-------------------------------" << endl;
+        cout << "ADDING BOTH FRACTIONS:" << endl;
+        cout << a << " (+) " << b << " = " << a + b << endl;
+        cout << "-------------------------------" << endl;
+        cout << "SUBTRACTING BOTH FRACTIONS: " << endl;
+        cout << a << " (-) " << b << " = " << a - b << endl;
+        cout << "-------------------------------" << endl;
+        cout << "MULTIPLYING BOTH FRACTIONS: " << endl;
+        cout << a << " (*) " << b << " = " << a * b << endl;
+        cout << "-------------------------------" << endl;
+        cout << "DIVIDING BOTH FRACTIONS: " << endl;
+        cout << a << " (/) " << b << " = " << a / b << endl;
+        cout << "-------------------------------" << endl;
+        cout << "NEGATING BOTH FRACTIONS: " << endl;
+        cout << "The negated value for " << a << " is " << -a << endl;
+        cout << "The negated value for " << b << " is " << -b << endl;
+        cout << "-------------------------------" << endl;
+        cout << "RECIPORICAL OF BOTH FRACTION IS:" << endl;
+        cout << "The reciporical of " << a << " is " << a.reciporical() << endl;
+        cout << "The reciporical of " << b << " is " << b.reciporical() << endl;
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTIONS ARE EQUAL" << endl;
+        if(a == b){
+            cout << "Fractions are equal" << endl;
+        }else{
+            cout << "Fractions are NOT equal" << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTIONS ARE DIFFERENT" << endl;
+        if(a != b){
+            cout << "Fractions are different" << endl;
+        }else{
+            cout << "Fractions are the same" << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTION (A) IS LESS THAN (B)" << endl;
+        if(a < b){
+            cout << a << " is less than " << b << endl;
+        }else{
+            cout << a << " is more than " << b << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTION (A) IS LESS THAN OR EQUAL TO (B)" << endl;
+        if(a <= b){
+            cout << a << " is less than or equal to " << b << endl;
+        }else{
+            cout << a << " is more than " << b << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTION (A) IS MORE THAN (B)" << endl;
+        if(a > b){
+            cout << a << " is more than " << b << endl;
+        }else{
+            cout << a << " is less than " << b << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "CHECKING IF FRACTION (A) IS MORE THAN OR EQUAL TO (B)" << endl;
+        if(a >= b){
+            cout << a << " is more than or equal to " << b << endl;
+        }else{
+            cout << a << " is less than " << b << endl;
+        }
+        cout << "-------------------------------" << endl;
+        cout << "ASSIGNING A NEW VALUE TO A FRACTION:" << endl;
+        cout << "Please type a new value for Fraction A:" << endl << endl;
+        cout << "Numerator/Denominator: ";
+        cin >> a;
+        cout << "Please type a new value for Fraction B:" << endl << endl;
+        cout << "Numerator/Denominator: ";
+        cin >> b;
+        cout << "New Value for A is: " << a << endl;
+        cout << "New Value for B is: " << b << endl;
+        cout << "FRACTIONS TO THE POWER OF i :" << endl;
+        cout << "Please enter the power value i: " << endl;
+        int i;
+        cin >> i;
+        cout << a << " to the power of " << i << " is: " << a.exp(i) << endl;
+        cout << b << " to the power of " << i << " is: " << b.exp(i) << endl;
+
+}
 
 unsigned long GCD(unsigned long int a, unsigned long int b)
 {
