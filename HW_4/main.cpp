@@ -1,32 +1,29 @@
-/**
- * File: main.cpp
- * Author: Jered Stevens
- * Course: CMPS 1063 - Fall 2019
- * Date: 10/10/2019
- * Description:
- * Main driver of an Array based implementation of a stack.
- */
-
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<string>
 #include "person.h"
-#include "student.h"
 #include "bank.h"
-
 
 using namespace std;
 
+int AccountNumber::acctCounter = 0;
 
-/**
- * Main Program
- * 
- */
+
+/////////////////////////////////////////////////
+//	STILL NEEDED:
+//		functionality to:
+//		-withdraw
+//		-deposit
+//		-send money to another account
+//		-view balance
+/////////////////////////////////////////////////
+
 int main() {
+	//string UnitedStates = "united states";
+	//string* usa = &UnitedStates;
+	//Student Jered("Jered", "Stevens", "10-20-1998", "3004 Barrywood Drive", usa, "CompSci", "Tina Johnson", 3);
+	//cout << Jered;
 
-    Bank bank;
-    bank.RunTheBank();
-
-    
-    return 0;
-
+	Bank bank;
+	bank.createNewAccount();
+	bank.printStudentAccounts();
 }
