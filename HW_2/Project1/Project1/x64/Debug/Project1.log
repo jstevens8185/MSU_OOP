@@ -1,4 +1,0 @@
-﻿  CallenderStevensH2.cpp
-E:\MSU_OOP\HW_2\Fraction.cpp(28,22): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
-E:\MSU_OOP\HW_2\Fraction.cpp(29,22): warning C4244: 'initializing': conversion from 'double' to 'long', possible loss of data
-  Project1.vcxproj -> E:\MSU_OOP\HW_2\Project1\x64\Debug\Project1.exe
