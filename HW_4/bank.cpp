@@ -86,7 +86,7 @@ void Bank::buildCountryList() {
     cin.sync();
     while (std::getline(in, line))
     {
-    //cout << line << endl;
+        //cout << line << endl;
         for (int i = 0; i < line.length(); i++) {
             char a = tolower(line[i]);
             line[i] = a;
