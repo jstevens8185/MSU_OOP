@@ -57,5 +57,3 @@ class Fraction
 
 unsigned long GCD(unsigned long int a, unsigned long int b);
 void run(Fraction,Fraction);
-
-#include "Fraction.cpp"

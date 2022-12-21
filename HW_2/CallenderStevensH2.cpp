@@ -1,6 +1,6 @@
 /**************************************************
  *              H2
- * Names: Chad Callendar, Jered Stevens
+ * Names: Jered Stevens
  * Class: OOP 2143 - MWF 12PM
  * Date: 04/03/2022
  * 
